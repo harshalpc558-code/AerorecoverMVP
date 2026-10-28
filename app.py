@@ -333,10 +333,20 @@ if idx >= 2:
             md('<div class="sec">3 · Passenger 2: human escalation</div>')
             md(pax_card(r2))
             o = r2["o"]
-            if ss.stage == "p2_run":
+            
+            # --- THIS IS THE NEW GATE ---
+            if ss.stage == "p1_choice":
+                st.write("")
+                st.write("")
+                if st.button("▶ Proceed to Passenger 2", type="primary", use_container_width=True):
+                    go("p2_run")
+                    st.rerun()
+                    
+            elif ss.stage == "p2_run":
                 stream("Rebooking · Fare · Care agents", thinking_log(r2))
                 go("await_human")
                 st.rerun()
+                
             else:
                 with st.expander("🧠 Agent Thinking Process: Passenger 2", expanded=False):
                     md(log_html(thinking_log(r2)))
